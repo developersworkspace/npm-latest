@@ -6,9 +6,7 @@ import * as path from 'path';
 commander
     .command('update')
     .action((command: any) => {
-        const currentFilePath: string = process.argv[1];
-
-        const currentDirectoryPath: string = path.dirname(currentFilePath);
+        const currentDirectoryPath: string = path.resolve('./');
 
         const packageFileContents: string = fs.readFileSync(path.join(currentDirectoryPath, 'package.json'), 'utf8');
 
@@ -18,11 +16,11 @@ commander
 
         const devDependenciesUpdateCommand: string = Object.keys(packageFileJSON.devDependencies).map((key: string) => `${key}@latest`).join(' ');
 
-        const dependenciesUpdateCommandProcess = childProcess.execSync(`npm install --prefix ${currentDirectoryPath} ${dependenciesUpdateCommand}`);
+        const dependenciesUpdateCommandProcess = childProcess.execSync(`npm install --save ${dependenciesUpdateCommand}`);
 
         console.log(dependenciesUpdateCommandProcess.toString());
 
-        const devDependenciesUpdateCommandProcess = childProcess.execSync(`npm install --prefix ${currentDirectoryPath} ${devDependenciesUpdateCommand}`);
+        const devDependenciesUpdateCommandProcess = childProcess.execSync(`npm install --save-dev ${currentDirectoryPath} ${devDependenciesUpdateCommand}`);
 
         console.log(devDependenciesUpdateCommandProcess.toString());
     });

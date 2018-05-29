@@ -1,6 +1,6 @@
 {
-  "name": "npm-latest",
-  "version": "1.0.0",
+  "name": "npm-latest-cli",
+  "version": "1.0.3",
   "description": "",
   "scripts": {
     "build": "gulp build & tsc",
